@@ -94,3 +94,65 @@ WHERE City LIKE 'a_%'; --starts with a and at least 2-char long
 
 WHERE City LIKE 'a__%'; --starts with a and at least 3-char long
 
+WHERE City LIKE '[acs]%'; --starts with a, c, or s
+
+WHERE City LIKE '[a-f]%'; --starts with anything from a to f
+
+WHERE City LIKE '[^acs]%'; --first letter not a or c or s, ^ the complement set
+
+--shorthand for multiple OR conditions IN
+SELECT * FROM Customers
+WHERE Country IN ('France','Germany');
+
+SELECT * FROM Customers
+WHERE Country NOT IN ('France','Germany');
+
+--query for values BETWEEN can be strings between letters in alphabetical order
+SELECT * FROM Customers
+WHERE Age BETWEEN 20 AND 30;
+
+SELECT * FROM Products
+WHERE Price NOT BETWEEN 10 AND 20;
+
+SELECT * FROM Products
+WHERE Name BETWEEN 'A' AND 'G';
+
+--temporary more readable col or table names aliases AS
+SELECT Name, PostalCode AS Pno FROM Products;
+
+SELECT * FROM Customers AS Consumers;
+
+--joins
+SELECT * FROM Orders 
+LEFT JOIN Customers
+ON Orders.CustomerID=Customers.CustomerID;
+
+INNER JOIN Customers --intersection only
+
+RIGHT JOIN Customers --all of right tables and matchings from left table
+
+--summary using GROUP BY
+SELECT COUNT(CustomerID),Country FROM Customers
+GROUP BY Country
+ORDER BY COUNT(CustomerID) DESC;
+
+--database and table operations
+CREATE DATABASE testDB;
+
+DROP DATABASE testDB;
+
+CREATE TABLE People (
+  PersonID int,
+  Name varchar(255),
+  Address varchar(255)
+  );
+  
+DROP TABLE People;
+
+TRUNCATE TABLE People; --drop data inside table but no delete table
+
+ALTER TABLE People
+ADD Birthday DATE; --add a column
+
+ALTER TABLE People
+DROP COLUMN Birthday;
