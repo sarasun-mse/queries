@@ -156,3 +156,22 @@ ADD Birthday DATE; --add a column
 
 ALTER TABLE People
 DROP COLUMN Birthday;
+
+--case statements
+SELECT employee_id,
+CASE
+  WHEN employee_id%2 = 0 OR name LIKE 'M%' THEN 0
+  ELSE salary
+END AS bonus
+FROM employees;
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+ END);
+ 
+UPDATE Salary
+SET sex = (CASE WHEN sex = 'f' THEN 'm' ELSE 'f' END);
