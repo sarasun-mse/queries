@@ -175,3 +175,9 @@ ORDER BY
  
 UPDATE Salary
 SET sex = (CASE WHEN sex = 'f' THEN 'm' ELSE 'f' END);
+
+--string manipulations
+SELECT user_id,
+    CONCAT(UPPER(SUBSTR(name,1,1)),LOWER(SUBSTR(name,2))) AS name
+FROM Users
+ORDER BY user_id;
