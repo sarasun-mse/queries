@@ -177,7 +177,22 @@ UPDATE Salary
 SET sex = (CASE WHEN sex = 'f' THEN 'm' ELSE 'f' END);
 
 --string manipulations
+
+--case change, substrings, concatenation
 SELECT user_id,
     CONCAT(UPPER(SUBSTR(name,1,1)),LOWER(SUBSTR(name,2))) AS name
 FROM Users
 ORDER BY user_id;
+
+--group_concat() when you need to aggregate a string type variable with group by
+SELECT sell_date,
+       COUNT(DISTINCT product) AS num_sold,
+       GROUP_CONCAT(DISTINCT product ORDER BY product) AS products
+FROM Activities
+GROUP BY sell_date
+ORDER BY sell_date;
+
+--special case matching pattern in strings
+SELECT patient_id, patient_name, conditions
+FROM Patients
+WHERE conditions LIKE 'DIAB1%' OR conditions LIKE '% DIAB1%'; --will not find things like 'ADIAB1'
